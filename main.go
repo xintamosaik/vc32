@@ -47,7 +47,7 @@ func handleRequestEditUserName(w http.ResponseWriter, r *http.Request) {
 	templ := `
 	<h1>Change Name</h1>
 	<form action="/edit-name" method="POST">
-	<label for=username">Name</label>
+	<label for="username">Name</label>
 		<input name="username" id="username" type="text" /> 
 	</form>
 	` + homeLink
