@@ -1,0 +1,29 @@
+package main 
+
+import (
+
+	"net/http"
+)
+
+func handleRequestUpdateUserName(w http.ResponseWriter, r *http.Request) {
+	// check if the request method is POST
+	if r.Method == http.MethodPost {
+		r.ParseForm()
+		newName := r.FormValue("username")
+		if newName != "" {
+			name = newName
+		}
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+	}
+}
+
+
+ 
+templ usernameEdit() {
+    <h1>Change Name</h1>
+	<form action="/username" method="POST">
+	<label for="username">Name</label>
+		<input name="username" id="username" type="text" /> 
+	</form>
+}
+
