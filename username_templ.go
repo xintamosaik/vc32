@@ -8,7 +8,10 @@ package main
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "net/http"
+import (
+	"log"
+	"net/http"
+)
 
 var name string = "John Doe"
 
@@ -16,13 +19,16 @@ func handleRequestUpdateUserName(w http.ResponseWriter, r *http.Request) {
 	// check if the request method is POST
 	if r.Method == http.MethodPost {
 		r.ParseForm()
-		newName := r.FormValue("username")
+		newName := r.FormValue("updated")
+		log.Println(newName)
 		if newName != "" {
 			name = newName
 			// persist to a file in the future or DB
 		}
 		component := usernameChangeSuccess()
 		component.Render(r.Context(), w)
+	} else {
+		log.Println("no")
 	}
 }
 
@@ -76,7 +82,20 @@ func usernameEdit() templ.Component {
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<h1>Change Name</h1><form action=\"/username\" method=\"POST\"><label for=\"username\">Name</label> <input name=\"username\" id=\"username\" type=\"text\"></form>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<h1>Change Name</h1><form action=\"/username\" method=\"POST\" onsubmit=\"update(event)\"><label for=\"username\">Name</label> <input name=\"username\" id=\"username\" type=\"text\" value=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var3 string
+		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.ResolveAttributeValue(name)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `username.templ`, Line: 33, Col: 63}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var3)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "\"></form>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

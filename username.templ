@@ -1,6 +1,7 @@
 package main 
 
-import "net/http"
+import ("net/http"
+"log")
 
 var name string = "John Doe"
 
@@ -8,13 +9,16 @@ func handleRequestUpdateUserName(w http.ResponseWriter, r *http.Request) {
 	// check if the request method is POST
 	if r.Method == http.MethodPost {
 		r.ParseForm()
-		newName := r.FormValue("username")
+		newName := r.FormValue("updated")
+		log.Println(newName)
 		if newName != "" {
 			name = newName
 			// persist to a file in the future or DB
 		}
 		component := usernameChangeSuccess()
 		component.Render(r.Context(), w)
+	} else {
+		log.Println("no")
 	}
 }
 
@@ -24,8 +28,8 @@ templ usernameChangeSuccess() {
 
 templ usernameEdit() {
 	<h1>Change Name</h1>
-	<form action="/username" method="POST">
+	<form action="/username" method="POST" onsubmit="update(event)">
 		<label for="username">Name</label>
-		<input name="username" id="username" type="text"/>
+		<input name="username" id="username" type="text" value={ name }/>
 	</form>
 }

@@ -9,21 +9,34 @@
 
     <title>Document</title>
     <script>
+        async function update(e) {
+            e.preventDefault();
+            console.log(e.currentTarget)
+            const load = new FormData(e.currentTarget)
+            console.log(load)
+            const response = await fetch("/" + e.currentTarget.id, {
+                method: "POST",
+                body: JSON.stringify({ updated: e.currentTarget.value }),
+            });
+
+            const data = await response.text();
+            console.log(data)
+        }
         function navigate(e) {
-        
+
             e.preventDefault();
             fetch(e.currentTarget.href)
                 .then(response => response.text())
                 .then(html => {
                     document.body.innerHTML = html;
-                    
+
                 });
         }
     </script>
 </head>
 
 <body style="width: 60ch; margin: 0 auto;">
- 
+
     {{ . }}
 </body>
 
