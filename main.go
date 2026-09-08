@@ -7,9 +7,6 @@ import (
 	"github.com/a-h/templ"
 )
 
-var name string
-const homeLink = `<a href="/">Home</a>`
-
 func handleRequestHome(w http.ResponseWriter, r *http.Request) {
 	templ := `
 	<a href="/hello" onclick="navigate(event)">Hello</a>
@@ -19,21 +16,12 @@ func handleRequestHome(w http.ResponseWriter, r *http.Request) {
 	parsed.Execute(w, template.HTML(templ))
 }
 
- 
-func handleRequestNew(w http.ResponseWriter, r *http.Request) {
-	templ := "<h1>New</h1>" + homeLink
-	parsed := template.Must(template.New("new").Parse(templ))
-	parsed.Execute(w, nil)
-}
-
- 
-
 func main() {
-	name = "John Doe"
+	
 
 	http.HandleFunc("/", handleRequestHome)
 
-	http.HandleFunc("/new", handleRequestNew)
+	http.Handle("/new", templ.Handler(new()))
 	
 	http.Handle("GET /username", templ.Handler(usernameEdit()))
 	http.HandleFunc("POST /username", handleRequestUpdateUserName)

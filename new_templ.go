@@ -8,23 +8,7 @@ package main
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "net/http"
-
-var name string = "John Doe"
-
-func handleRequestUpdateUserName(w http.ResponseWriter, r *http.Request) {
-	// check if the request method is POST
-	if r.Method == http.MethodPost {
-		r.ParseForm()
-		newName := r.FormValue("username")
-		if newName != "" {
-			name = newName
-		}
-		http.Redirect(w, r, "/", http.StatusSeeOther)
-	}
-}
-
-func usernameEdit() templ.Component {
+func new() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -45,7 +29,7 @@ func usernameEdit() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<h1>Change Name</h1><form action=\"/username\" method=\"POST\"><label for=\"username\">Name</label> <input name=\"username\" id=\"username\" type=\"text\"></form>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<h1>New</h1>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

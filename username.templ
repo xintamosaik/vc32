@@ -1,9 +1,8 @@
 package main 
 
-import (
+import "net/http"
 
-	"net/http"
-)
+var name string = "John Doe"
 
 func handleRequestUpdateUserName(w http.ResponseWriter, r *http.Request) {
 	// check if the request method is POST
@@ -17,13 +16,10 @@ func handleRequestUpdateUserName(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-
- 
 templ usernameEdit() {
-    <h1>Change Name</h1>
+	<h1>Change Name</h1>
 	<form action="/username" method="POST">
-	<label for="username">Name</label>
-		<input name="username" id="username" type="text" /> 
+		<label for="username">Name</label>
+		<input name="username" id="username" type="text"/>
 	</form>
 }
-
