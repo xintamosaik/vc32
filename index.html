@@ -11,16 +11,17 @@
     <script>
         async function update(e) {
             e.preventDefault();
-            console.log(e.currentTarget)
-            const load = new FormData(e.currentTarget)
-            console.log(load)
-            const response = await fetch("/" + e.currentTarget.id, {
+            const form = e.currentTarget;
+            const formData = new FormData(form);
+            console.log(Object.fromEntries(formData));
+            const response = await fetch(form.action, {
                 method: "POST",
-                body: JSON.stringify({ updated: e.currentTarget.value }),
+                body: formData,
             });
 
             const data = await response.text();
             console.log(data)
+            document.body.innerHTML = data
         }
         function navigate(e) {
 
