@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"github.com/a-h/templ"
 	"html/template"
 	"net/http"
-	"github.com/a-h/templ"
 )
 
 func handleRequestHome(w http.ResponseWriter, r *http.Request) {
@@ -17,12 +17,11 @@ func handleRequestHome(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	
 
 	http.HandleFunc("/", handleRequestHome)
 
 	http.Handle("/new", templ.Handler(new()))
-	
+
 	http.Handle("GET /username", templ.Handler(usernameEdit()))
 	http.HandleFunc("POST /username", handleRequestUpdateUserName)
 
