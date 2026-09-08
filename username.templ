@@ -11,9 +11,15 @@ func handleRequestUpdateUserName(w http.ResponseWriter, r *http.Request) {
 		newName := r.FormValue("username")
 		if newName != "" {
 			name = newName
+			// persist to a file in the future or DB
 		}
-		http.Redirect(w, r, "/", http.StatusSeeOther)
+		component := usernameChangeSuccess()
+		component.Render(r.Context(), w)
 	}
+}
+
+templ usernameChangeSuccess() {
+	<p>yeah!</p>
 }
 
 templ usernameEdit() {
