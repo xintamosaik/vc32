@@ -7,7 +7,7 @@ import (
 )
 
 var name string
-const homeLink = `<a href="/" onclick="navigate(event)">Home</a>`
+const homeLink = `<a href="/">Home</a>`
 
 func handleRequestHome(w http.ResponseWriter, r *http.Request) {
 	templ := `
