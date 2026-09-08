@@ -7,6 +7,7 @@ import (
 )
 
 var name string
+const homeLink = `<a href="/" onclick="navigate(event)">Home</a>`
 
 func handleRequestHome(w http.ResponseWriter, r *http.Request) {
 	templ := `
@@ -17,14 +18,14 @@ func handleRequestHome(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleRequestHello(w http.ResponseWriter, r *http.Request) {
-	templ := "<h1>Hello, {{.}}</h1>"
+	templ := "<h1>Hello, {{.}}</h1>" + homeLink
 
 	parsed := template.Must(template.New("hello").Parse(templ))
 	parsed.Execute(w, name)
 }
 
 func handleRequestNew(w http.ResponseWriter, r *http.Request) {
-	templ := "<h1>New</h1>"
+	templ := "<h1>New</h1>" + homeLink
 	parsed := template.Must(template.New("new").Parse(templ))
 	parsed.Execute(w, nil)
 }
