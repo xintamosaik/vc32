@@ -35,18 +35,18 @@ func handleRequestUpdateUserName(w http.ResponseWriter, r *http.Request) {
 	// check if the request method is POST
 	if r.Method == http.MethodPost {
 		r.ParseForm()
-		newName := r.FormValue("name")
+		newName := r.FormValue("username")
 		if newName != "" {
 			name = newName
 		}
-		http.Redirect(w, r, "/hello", http.StatusSeeOther)
+		http.Redirect(w, r, "/", http.StatusSeeOther)
 	}
 }
 
 func handleRequestEditUserName(w http.ResponseWriter, r *http.Request) {
 	templ := `
 	<h1>Change Name</h1>
-	<form action="/edit-name" method="POST">
+	<form action="/username" method="POST">
 	<label for="username">Name</label>
 		<input name="username" id="username" type="text" /> 
 	</form>
